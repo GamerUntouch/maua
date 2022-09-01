@@ -1,5 +1,73 @@
 # Maua
 
+## RUNNING ON RUNPOD FOR STABLE DIFFUSION
+## Notes
+```
+This hypothetically should run on any system that has ubuntu. This was SPECIFICALLY written for the configuration that runpod uses for its secure cloud.
+Remember to navigate to the /workspace/ folder in the directory before starting up a terminal.
+Scripts are saved under opt/lib/python3.7/site-packages/maua/
+I'm not entirely sure if it's a problem with jupityrlab, but stopping the VM seems to wipe the env, so you'll have to redo everything.
+This was SPECIFICALLY setup to use with STABLE DIFFUSION, other functionality is likely not working and was not tested.
+```
+
+## Setup
+### STEP 1
+```
+conda install cuda -c nvidia
+```
+```
+apt update && apt install build-essential && apt-get install manpages-dev
+```
+The default config that RunPod uses does not play well with the library so this updates a bunch of stuff. Takes a considerable amount of time, sorry.
+
+### STEP 2
+Then,
+```
+pip install numpy Cython torch --extra-index-url https://download.pytorch.org/whl/cu116
+```
+```
+pip install git+https://github.com/maua-maua-maua/maua.git --extra-index-url https://pypi.ngc.nvidia.com --extra-index-url https://download.pytorch.org/whl/cu116
+git clone https://github.com/maua-maua-maua/maua
+
+cd maua
+git submodule init
+git submodule update
+```
+Downloads all of the modules and submodules needed.
+
+### STEP 3
+Then,
+```
+pip install torchvision --upgrade
+```
+```
+apt-get update && apt-get install libgl1 && apt-get install libglib2.0-0 && apt-get install libboost-all-dev && apt-get install mesa-common-dev
+```
+```
+ln -s libboost_python37.dylib libboost_python3.dylib
+
+python maua/submodules/pycuda/configure.py --cuda-enable-gl
+mv siteconf.py maua/submodules/pycuda
+pip install -e maua/submodules/pycuda
+
+git clone https://github.com/NVIDIA/apex
+cd apex
+python setup.py install --cuda_ext --cpp_ext 
+cd ..
+
+pip install maua[flow]
+
+cd maua
+conda install pytorch torchvision torchaudio -c pytorch
+```
+Compiles all of the modules. After this, you're good to go.
+
+### Commands
+```
+python -m maua.diffusion.image --text "a prompt" --diffusion stable --sizes 512,512 --number 1 --timesteps 50 --sampler euler_ancestral --cfg-scale 5.0 --clip-scale 75 --seed 42
+```
+
+
 ## 👷 ⛏️ WIP 🛠️ 👷
 
 Maua is a Python library (and command line interface) for synthesizing images, video, and audio using deep learning.
