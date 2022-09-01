@@ -6,6 +6,9 @@ from uuid import uuid4
 
 import numpy as np
 import torch
+import time
+import random
+from pytorch_lightning import seed_everything
 from maua.diffusion.processors.base import BaseDiffusionProcessor
 from PIL import Image
 from resize_right import resize
@@ -289,8 +292,12 @@ if __name__ == "__main__":
     parser.add_argument("--sharpness", type=float, default=0.0, help='Sharpen the image by this amount after each diffusion scale (a value of 1.0 will leave the image unchanged, higher values will be sharper).')
     parser.add_argument("--device", type=str, default="cuda", help='Which device to use (e.g. "cpu" or "cuda:1")')
     parser.add_argument("--number", type=int, default=1, help='How many images to render.')
-    parser.add_argument("--out-dir", type=str, default="output/", help='Directory to save output images to.')
+    parser.add_argument("--seed", type=int, default=random.randint(0, 999999999), help='Seed used to generate.')
+    parser.add_argument("--out-dir", type=str, default="output", help='Directory to save output images to.')
     args = parser.parse_args()
+    
+    seed_everything(args.seed)
+    
     # fmt:on
 
     out_name = build_output_name(args.init, args.style, args.text)[:222]
@@ -298,4 +305,4 @@ if __name__ == "__main__":
     del args.out_dir
 
     for i, img in enumerate(image_sample(**vars(args))):
-        save_image(img, f"{out_dir}/{out_name}{i}.png")
+        save_image(img, f"{out_dir}/{out_name}{i}_{time.time()}.png")
