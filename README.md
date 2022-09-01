@@ -26,8 +26,8 @@ Then,
 pip install numpy Cython torch --extra-index-url https://download.pytorch.org/whl/cu116
 ```
 ```
-pip install git+https://github.com/maua-maua-maua/maua.git --extra-index-url https://pypi.ngc.nvidia.com --extra-index-url https://download.pytorch.org/whl/cu116
-git clone https://github.com/maua-maua-maua/maua
+pip install git+https://github.com/gameruntouch/maua.git --extra-index-url https://pypi.ngc.nvidia.com --extra-index-url https://download.pytorch.org/whl/cu116
+git clone https://github.com/gameruntouch/maua
 
 cd maua
 git submodule init
