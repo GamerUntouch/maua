@@ -3,7 +3,7 @@
 ## RUNNING ON RUNPOD FOR STABLE DIFFUSION
 ## Notes
 ```
-This hypothetically should run on any system that has ubuntu. This was SPECIFICALLY written for the configuration that runpod uses for its secure cloud.
+This hypothetically should run on any system that has ubuntu. This was SPECIFICALLY written for the configuration that runpod uses for its secure cloud. Only seems to work with the 48GB VRAM configurations.
 Remember to navigate to the /workspace/ folder in the directory before starting up a terminal.
 Scripts are saved under opt/lib/python3.7/site-packages/maua/
 I'm not entirely sure if it's a problem with jupityrlab, but stopping the VM seems to wipe the env, so you'll have to redo everything.
