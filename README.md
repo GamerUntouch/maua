@@ -24,8 +24,6 @@ The default config that RunPod uses does not play well with the library so this 
 Then,
 ```
 pip install numpy Cython torch --extra-index-url https://download.pytorch.org/whl/cu116
-```
-```
 pip install git+https://github.com/gameruntouch/maua.git --extra-index-url https://pypi.ngc.nvidia.com --extra-index-url https://download.pytorch.org/whl/cu116
 git clone https://github.com/gameruntouch/maua
 
@@ -39,8 +37,6 @@ Downloads all of the modules and submodules needed.
 Then,
 ```
 pip install torchvision --upgrade
-```
-```
 apt-get update && apt-get install libgl1 && apt-get install libglib2.0-0 && apt-get install libboost-all-dev && apt-get install mesa-common-dev
 ```
 ```
